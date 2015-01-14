@@ -10,6 +10,7 @@ void array_destroy(char **arr, int row);
 void array_snake(char **arr, int row, int col);
 void array_print(char **arr, int row, int col);
 void array_diagonal(char **arr, int row, int col);
+void array_spiral(char **arr, int row, int col);
 
 int main()
 {
@@ -18,7 +19,8 @@ int main()
     {
 	char **arr = array_init(row ,col); 
 //	array_snake(arr, row, col);
-	array_diagonal(arr, row, col);
+//	array_diagonal(arr, row, col);
+	array_spiral(arr, row, col);
 	array_print(arr, row, col);
 	array_destroy(arr, row);
 	arr = NULL;
@@ -102,7 +104,7 @@ void array_diagonal(char **arr, int row, int col)
     {
 	delt = line;	
 //	if(row % 2 == 1)
-	if(line % 2 == !(row%2)) //奇数行与偶数行的  有半部分 开始的顺序不一样
+	if(line % 2 == !(row%2)) //奇数行与偶数行的  右半部分 开始的顺序不一样
 	{
 	    for(i = 0; i <= row - 1; i++)
 		for(j = line + i; j < col; j++)
@@ -120,8 +122,45 @@ void array_diagonal(char **arr, int row, int col)
     }
 }
 
+/*
+ 17 16 15 14 13
+ 18 5  4  3  12
+ 19 6  1  2  11
+ 20 7  8  9  10
+ 21 22 23 24 25
+*/
 void array_spiral(char **arr, int row, int col)
 {
+    
+    int i, j, step_count;
+    int count = 1;
+    int step = 1;
+    i = row >> 1;       
+    j = col >> 1;
+    if(row % 2 == 0)
+	j--;
+    arr[i][j] = 1; 
+    while( count <= row * col)
+    {
+	//l -> r
+	for(step_count = 0; step_count < step; step_count++, j++)
+	    arr[i][j + 1] = ++count;
+	if(count >= row * col)
+	    break ;
+	// d -> u 
+	for(step_count = 0; step_count < step; step_count++, i--)
+	    arr[i - 1][j] = ++count;	
+	step++;
+	// r -> l
+	for(step_count = 0; step_count < step; step_count++, j--)
+	    arr[i][j - 1] = ++count;
+	if(count >= row * col)
+	    break ;
+	// u -> d
+	for(step_count = 0; step_count < step; step_count++, i++)
+	    arr[i + 1][j] = ++count;
+	step++;
+    }
 }
 
 
