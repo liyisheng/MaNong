@@ -2,6 +2,14 @@
 #include<stdlib.h>
 
 #define ISLEAP(y) ( y%400 == 0 || (y%4 == 0 && y%100 != 0) )
+
+int isleap(int y)
+{
+    if((y%400 == 0) || (y%4 == 0 && y%100 != 0))
+	return 1;
+    else 
+	return 0;
+}
 /*
     输入两个个日期,计算间隔日期
 */
@@ -29,9 +37,9 @@ int count_dayOfyear(int y,int m, int d)
 		count += 30;
 		break;
 	    case 2:
-		if(ISLEAP(y))
+		if(isleap(y))
 		    count += 29;
-		else 
+		else
 		    count += 28;
 		break;
 	    default:
@@ -39,8 +47,7 @@ int count_dayOfyear(int y,int m, int d)
 	}
     }
     count += d;
-    return count; 
-     
+    return count;  
 }
 
 int between_days(int y1, int m1, int d1, int y2, int m2, int d2)
@@ -49,10 +56,16 @@ int between_days(int y1, int m1, int d1, int y2, int m2, int d2)
     int sum = 0;
     for( i = y1; i < y2; i++) 
     {
-	if(ISLEAP(y1))
+	if(isleap(i))
+	{ 
 	    sum += 366;	
+	    printf("i: %d + 366\n",i);
+	}
 	else
+	{
 	    sum += 365;	
+	    printf("i : %d + 365\n",i);
+	}
     }
     sum += count_dayOfyear(y2, m2, d2) - count_dayOfyear(y1, m1, d1);
     return sum; 
@@ -62,7 +75,12 @@ int main()
 {
     int y1,y2,m1,m2,d1,d2;
     while(scanf("%d%d%d%d%d%d",&y1,&m1,&d1,&y2,&m2,&d2) == 6)
+    {
+
+	printf("%d\n",count_dayOfyear(y1,m1,d1));
+	printf("%d\n",count_dayOfyear(y2,m2,d2));
 	printf("%d\n",between_days(y1,m1,d1,y2,m2,d2));
+    }
     return 0;
 }
 

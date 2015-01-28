@@ -1,0 +1,8 @@
+文件IO操作
+
+
+errno 与 perro 函数
+
+errno是一个定义在errno.h中的全局变量。记录函数返回的错误码。
+
+perro和strerror函数讲errno解释成字符串。

@@ -7,9 +7,13 @@ char *reverse(char *s);
 void bigNum_plus(char *a, char *b, char *result);
 int main()
 {
-    char a[] = "9999991987129837017190741092730471098327499999999999";
-    char b[] = "999999999999999910823749817238471298340812374070714";
-    char result[100];
+    char a[] = "910812031111111111111111111111111111222222222222222222222222222222222222222234234234234";
+
+    char b[] = "819282222222222222222222222222222333333333333333333333333333331987921213123897918239";
+    char result[1000];
+
+    gets(a);
+    gets(b);
     bigNum_plus(a, b, result);
     printf("%s\n",result);
     return 0;
@@ -19,13 +23,19 @@ int main()
 void bigNum_plus(char *a, char *b, char *result)
 {
     int i;
+    char flag = '0';
     int len_a = strlen(a);
     int len_b = strlen(b);
     int max = len_a > len_b ? len_a : len_b;
-    reverse(a);   
-    reverse(b);   
     char *lit = (char *)malloc(max * sizeof(char) + 1);
     char *big = (char *)malloc(max * sizeof(char) + 1);
+    char *over = (char *)malloc(max * sizeof(char) + 2);
+    char *remain = (char *)malloc(max * sizeof(char) + 2);
+    char *temp = (char *)malloc(max * sizeof(char) + 2);
+    reverse(a);   
+    reverse(b);   
+    lit = (char *)malloc(max * sizeof(char) + 1);
+    big = (char *)malloc(max * sizeof(char) + 1);
     if(max == len_a)
     {
 	strcpy(big, a);
@@ -42,15 +52,14 @@ void bigNum_plus(char *a, char *b, char *result)
  
 //printf("%s\n", lit);
 //printf("%s\n\n", big);
-    char *over = (char *)malloc(max * sizeof(char) + 2);
+    over = (char *)malloc(max * sizeof(char) + 2);
     memset(over,'0',max + 1);
     over[max + 1] = '\0';
 
-    char *remain = (char *)malloc(max * sizeof(char) + 2);
+    remain = (char *)malloc(max * sizeof(char) + 2);
     memset(remain,'0',max + 1);
     remain[max + 1] = '\0';
 
-    char flag = '0';
     for(i = 0; i < max; i++)
     {
 	remain[i] = (lit[i] - '0' + big[i] - '0')%10 + '0';
@@ -62,7 +71,7 @@ void bigNum_plus(char *a, char *b, char *result)
 //printf("第一次：\n%s\n", remain);    
 //printf("%s\n\n", over);    
 
-    char *temp = (char *)malloc(max * sizeof(char) + 2);
+    temp = (char *)malloc(max * sizeof(char) + 2);
     memset(temp,'0',max + 1);
     temp[max + 1] = '\0';
     while(flag != '0')
@@ -84,6 +93,11 @@ void bigNum_plus(char *a, char *b, char *result)
     else
 	strcpy(result, remain);
 
+    free(lit);
+    free(big);
+    free(temp);
+    free(over);
+    free(remain);
 }
 
 
