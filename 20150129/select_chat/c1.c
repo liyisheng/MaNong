@@ -33,6 +33,7 @@ int main(int argc, char *argv[])
 		FD_ZERO(&rdfs);
 		FD_SET(fd12, &rdfs);
 		FD_SET(fd13, &rdfs);
+		printf("selecting....\n");
 		retval = select(5, &rdfs, NULL, NULL, NULL);
 		if(-1 == retval)
 		{
@@ -42,7 +43,12 @@ int main(int argc, char *argv[])
 		if(FD_ISSET(fd12, &rdfs))
 		{
 			memset(buf, 0, sizeof(buf));
-			read(fd12, buf, sizeof(buf));
+			retval = read(fd12, buf, sizeof(buf));
+			if (retval == 0)	
+			{
+				perror("read");
+				exit(0);
+			}
 			printf("%s", buf);
 		}else
 		{
