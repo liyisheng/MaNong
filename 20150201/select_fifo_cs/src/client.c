@@ -96,7 +96,11 @@ int main(int argc, char* argv[])
 					sprintf(logstat, "%u off\n", getpid());
 					printf("logstat: %s\n", logstat);
 					write(fd_server, logstat, strlen(logstat));
-					close(fd_send);
+					close(fd_send); //关闭写端
+					close(fd_recv);
+
+					unlink(path_name_r); //删除管道文件
+					unlink(path_name_w);
 					exit(1);
 				}
 				memset(msg, 0, sizeof(msg)) ;
