@@ -17,7 +17,7 @@
 
 #define SER_IP "192.168.101.129"
 #define SER_PORT 1234
-
+int recv_buf(int sfd, char *buf, int len);
 
 int main(int argc, char *argv[])
 {
@@ -51,7 +51,8 @@ int main(int argc, char *argv[])
 		close(fd);
 		exit(-1);
 	}
-
+while(1)
+{
 	struct sockaddr_in cli_addr;
 	memset(&cli_addr, 0, sizeof(cli_addr));
 
@@ -67,13 +68,14 @@ int main(int argc, char *argv[])
 	printf("%s: %d success connect\n", inet_ntoa(cli_addr.sin_addr), ntohs(cli_addr.sin_port));
 
 	char buf[1024] = {0};
-	nRet = recv(new_fd, buf, sizeof(buf), 0);
-	if(nRet == -1)
-	{
-		perror("recv");
-		close(new_fd);
-		exit(-1);
-	}
+//	nRet = recv(new_fd, buf, sizeof(buf), 0);
+//	if(nRet == -1)
+//	{
+//		perror("recv");
+//		close(new_fd);
+//		exit(-1);
+//	}
+	nRet = recv_buf(new_fd, buf, sizeof(buf));
 	printf("recv from client: %s\n", buf);
 
 	memset(buf, 0, 1024);
@@ -87,9 +89,22 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 
+	
 	close(new_fd);
+}
 	close(fd);
 
 	return 0;
+}
 
+int recv_buf(int sfd, char *buf, int len)
+{
+	int recv_sum = 0;
+	int recv_ret;
+	while(recv_sum < len)
+	{
+		recv_ret = recv(sfd, buf + recv_sum, len - recv_sum, 0);
+		recv_sum += recv_ret;
+	}
+	return recv_sum;
 }

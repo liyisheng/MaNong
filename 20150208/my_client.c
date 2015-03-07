@@ -17,6 +17,7 @@
 #define SER_IP "192.168.101.129"
 #define SER_PORT 1234 
 
+int send_buf(int sfd, char *buf, int len);
 
 
 int main(int argc, char *argv[])
@@ -37,13 +38,28 @@ int main(int argc, char *argv[])
 		exit(-1);
 	}
 
-	char *p = "hello world!\n";
-	send(fd_client, p, strlen(p), 0);
+	char p[1024] = {0};
+	scanf("%s", p);
+	//send(fd_client, p, strlen(p), 0);
+	int sendn = send_buf(fd_client, p, 1024);	
+	printf("sendn :%d\n", sendn);
 
-	char recv_buf[1024] = "";
+char recv_buf[1024] = "";
 	recv(fd_client, recv_buf, 1024, 0);
 	printf("from server: %s\n", recv_buf);
 	close(fd_client);
 	return 0;
 	
+}
+
+int send_buf(int sfd, char *buf, int len)
+{
+	int send_sum = 0;
+	int send_ret;
+	while(send_sum < len)
+	{
+		send_ret = send(sfd, buf + send_sum, len - send_sum, 0);
+		send_sum += send_ret;
+	}
+	return send_sum;
 }

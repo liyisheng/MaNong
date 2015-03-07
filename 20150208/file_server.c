@@ -68,8 +68,6 @@ int main(int argc, char* argv[])
 		close(fd_client);
 
 	}
-
-
 }
 void child_main(int sfd) 
 {
@@ -98,5 +96,4 @@ int recv_buf(int sfd, char* buf, int len)
 	}
 	printf("recv_cnt: %d\n", recv_cnt);
 	return recv_sum ;
-
 }
