@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
 	const int ival = 10;
 	int *pival = const_cast<int*>(&ival);
 
+//	int ival2 = const_cast<int>(ival);  //error
 	cout << "*pival = "	 << *pival << endl;
 	*pival = 20;
 
