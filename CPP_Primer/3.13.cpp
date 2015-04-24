@@ -21,16 +21,17 @@ int main(int argc, char *argv[])
 	{
 		ivec.push_back(n);
 	}
-	int i;
-	for(i = 0; i < ivec.size() - 1; i+=2)
+	vector<int>::size_type i;
+	vector<int>::size_type j;
+	for(i = 0, j = ivec.size() - 1; i < j; ++i, --j)
 	{
-		cout << ivec[i] + ivec[i + 1] << " ";
+		cout << ivec[i] + ivec[j] << " ";
 	}
 	cout << endl;
-	if(i != ivec.size())
+	if(i == j)
 	{
-		cout << "输入元素个数为奇数,最后一个数为" <<endl;
-		cout << ivec[ivec.size() - 1] << endl;
+		cout << "输入元素个数为奇数,中间数为" <<endl;
+		cout << ivec[i] << endl;
 	}
 	return 0;
 }
