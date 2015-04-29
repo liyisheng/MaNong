@@ -6,7 +6,7 @@
 #########################################################################
 #!/bin/python
 
-f = open("url.txt",'r')
+f = open("url.txt","r")
 line = f.readline()
 
 print line

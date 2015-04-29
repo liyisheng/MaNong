@@ -1,29 +1,29 @@
 /*************************************************************************
-    > File Name: 17.25.cpp
+    > File Name: class.cpp
     > Author: liyisheng
     > Mail: liyishengchn@gmail.com 
-    > Created Time: Sun 22 Mar 2015 05:27:17 PM CST
+    > Created Time: 2015年04月26日 星期日 22时42分59秒
  ************************************************************************/
 
 #include<iostream>
+#include<algorithm>
 using namespace std;
 
 
 class A
 {
-		
-}
-class B : public A
-{
+	public:
+		static int getA()
+		{
+			return a;
+		}
+		const static int a = 88; 
+};
 
-}
-
-class C : private B
-{
-
-}
-
+//const int A::a;
 int main(int argc, char *argv[])
 {
+	cout << A::a << endl;
+	cout << min(9, (int)A::a);
 	return 0;
 }

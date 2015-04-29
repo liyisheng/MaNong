@@ -17,7 +17,7 @@ void multiply(const char *a, const char *b)
 	assert( a != NULL && b != NULL);
 	int ca = strlen(a);
 	int cb = strlen(b);
-	int *s = new int[ca + cb]();
+	int *s = new int[ca + cb](); /分配存储空间,初始化0
 
 	for(int i = 0; i < ca; ++i)
 		for(int j = 0; j < cb; ++j)
